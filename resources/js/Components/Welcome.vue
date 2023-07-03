@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import { Link } from "@inertiajs/vue3";
+</script>
 
 <template>
     <div>
@@ -39,7 +41,7 @@
                     <h2
                         class="ml-3 text-xl font-semibold text-gray-900 dark:text-white"
                     >
-                        <a href="https://laracasts.com">Quiz Page</a>
+                        <Link :href="route('quiz')">Quiz Page</Link>
                     </h2>
                 </div>
 
@@ -74,9 +76,9 @@
                     <h2
                         class="ml-3 text-xl font-semibold text-gray-900 dark:text-white"
                     >
-                        <a href="https://tailwindcss.com/"
-                            >Mathematical Theory</a
-                        >
+                        <Link :href="route('theory')">
+                            Mathematical Theory
+                        </Link>
                     </h2>
                 </div>
 
