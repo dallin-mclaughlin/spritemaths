@@ -1,15 +1,15 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import Welcome from "@/Components/Welcome.vue";
+import Theory from "@/Components/Theory.vue";
 </script>
 
 <template>
-    <AppLayout title="Dashboard">
+    <AppLayout title="Theory">
         <template #header>
             <h2
                 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"
             >
-                Dashboard
+                Theory
             </h2>
         </template>
 
@@ -18,7 +18,7 @@ import Welcome from "@/Components/Welcome.vue";
                 <div
                     class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg"
                 >
-                    <Welcome />
+                    <Theory />
                 </div>
             </div>
         </div>

@@ -33,9 +33,9 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
     Route::get('/quiz', function () {
-      return Inertia::render('Dashboard');
+      return Inertia::render('Quiz');
   })->name('quiz');
   Route::get('/theory', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('Theory');
 })->name('theory');
 });
