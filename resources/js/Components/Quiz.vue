@@ -43,14 +43,15 @@ import { Link } from "@inertiajs/vue3";
                 <p
                     class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed"
                 >
-                    This page is where all the questions are generated and the
-                    learning takes place. Behind the scene algorithms are at
-                    work creating skill specific questions for you. This is the
-                    power of spritemaths. Every question should be unique so
-                    that you are learning to spot patterns and think logically
-                    about how to approach a problem instead of memorising the
-                    answer to a question.
+                    This page is where all the questions are beautifully
+                    generated and the learning takes place. Behind the scene
+                    algorithms are at work creating skill specific questions for
+                    you. This is the power of spritemaths. Every question should
+                    be unique so that you are learning to spot patterns and
+                    think logically about how to approach a problem instead of
+                    memorising the answer to a question.
                 </p>
+                <button className="border rounded-md">Start Quiz</button>
             </div>
         </div>
     </div>
