@@ -1,5 +1,10 @@
 @media not (pointer: coarse) {
-  math-field::part(virtual-keyboard-toggle) {
-    display: none;
-  }
+    math-field::part(virtual-keyboard-toggle) {
+        display: none;
+    }
+}
+
+.ML__content {
+    display: flex;
+    justify-content: center;
 }
