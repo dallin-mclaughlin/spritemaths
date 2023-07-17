@@ -8,7 +8,7 @@ import "../../css/mathlive.css";
 const mathFieldAnswer = ref<MathfieldElement>();
 const keyboard = window.mathVirtualKeyboard;
 console.log(window);
-//keyboard.layouts = ["numeric", "symbols"];
+keyboard.layouts = ["numeric", "symbols"];
 </script>
 
 <template>
