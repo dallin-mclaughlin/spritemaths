@@ -7,12 +7,7 @@ import "../../css/mathlive.css";
 
 const mathFieldAnswer = ref<MathfieldElement>(new MathfieldElement());
 const keyboard = window.mathVirtualKeyboard;
-<<<<<<< HEAD
-console.log(window);
-keyboard.layouts = ["numeric", "symbols"];
-=======
 keyboard.layouts = ["numeric"];
->>>>>>> 19e139ee1ff2c5a8a5617d7ab102b48f45696c8f
 </script>
 
 <template>
