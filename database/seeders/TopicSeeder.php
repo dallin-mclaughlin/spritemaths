@@ -26,7 +26,7 @@ class TopicSeeder extends Seeder
       ]);
 
       DB::table('topics')->insert([
-        'topic' => 'Probablity',
+        'topic' => 'Probability',
         'summary' => 'Probability, as a core concept in mathematics 
                       and statistics, entails quantifying the 
                       likelihood of various outcomes or events
@@ -72,7 +72,7 @@ class TopicSeeder extends Seeder
 
       DB::table('topics')->insert([
         'topic' => 'Integration',
-        'summary' => 'Integration, also fundamental to calculus, 
+        'summary' => 'Integration, fundamental to calculus, 
                       encompasses the accumulation of infinitesimal 
                       quantities over an interval, enabling the 
                       determination of areas, volumes, and the net 
