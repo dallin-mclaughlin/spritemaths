@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUpdated } from "vue";
-import { MathfieldElement } from "mathlive";
+import { MathfieldElement, renderMathInElement } from "mathlive";
 import { Link } from "@inertiajs/vue3";
 import "../../css/mathlive-fonts.css";
 import "../../css/mathlive.css";
@@ -8,6 +8,45 @@ import "../../css/mathlive.css";
 const mathFieldAnswer = ref<MathfieldElement>(new MathfieldElement());
 const keyboard = window.mathVirtualKeyboard;
 keyboard.layouts = ["numeric"];
+
+const index = ref(0);
+
+const props = defineProps({
+    questions: Array,
+    submittedAnswers: Array,
+});
+
+const emit = defineEmits(["update:submittedAnswers"]);
+
+onMounted(() => {
+    renderMathInElement("mathFieldQuestion");
+});
+
+onUpdated(() => {
+    renderMathInElement("mathFieldQuestion");
+});
+
+function handlePrevious() {
+    if (props.questions != undefined && index.value != 0) {
+        updateAnswers();
+        index.value =
+            (index.value + props.questions.length - 1) % props.questions.length;
+    }
+}
+
+function handleNext() {
+    if (
+        props.questions != undefined &&
+        index.value != props.questions.length - 1
+    ) {
+        updateAnswers();
+        index.value = (index.value + 1) % props.questions.length;
+    }
+}
+
+function updateAnswers() {
+    emit("update:submittedAnswers", mathFieldAnswer.value.value, index.value);
+}
 </script>
 
 <template>
@@ -17,19 +56,23 @@ keyboard.layouts = ["numeric"];
         >
             <div className="flex justify-between">
                 <button
-                    className="text-gray-500 dark:text-gray-400 border-2 rounded-md px-4"
+                    className="text-gray-500 dark:text-gray-400 bg-slate-200 border-2 rounded-md px-4"
                 >
                     Save and Exit
                 </button>
                 <button
-                    className="text-gray-500 dark:text-gray-400 border-2 rounded-md px-4"
+                    className="text-gray-500 dark:text-gray-400 bg-slate-200 border-2 rounded-md px-4"
                 >
                     Save and Mark
                 </button>
             </div>
-            <h1 class="mt-8 text-2xl font-medium text-gray-900 dark:text-white">
-                The Question
-            </h1>
+            <p>Question {{ index + 1 }}/{{ props.questions.length }}</p>
+            <p
+                id="mathFieldQuestion"
+                class="mt-8 text-2xl font-medium text-gray-900 dark:text-white"
+            >
+                {{ props.questions[index] }}
+            </p>
         </div>
 
         <div
@@ -40,18 +83,22 @@ keyboard.layouts = ["numeric"];
                 ref="mathFieldAnswer"
                 className="text-3xl justify-center"
                 plonkSound="none"
-                value="2+3"
+                :value="submittedAnswers[index]"
             ></math-field>
             <div className="flex justify-between">
                 <button
-                    className="text-gray-500 dark:text-gray-400 border-2 rounded-md px-4"
+                    :disabled="index == 0"
+                    @click="handlePrevious"
+                    className="text-gray-500 disabled:text-gray-300 dark:text-gray-400 bg-slate-200 disabled:bg-transparent border-2 rounded-md px-4"
                 >
-                    Previous Question
+                    Previous
                 </button>
                 <button
-                    className="text-gray-500 dark:text-gray-400 border-2 rounded-md px-4"
+                    :disabled="index == props.questions.length - 1"
+                    @click="handleNext"
+                    className="text-gray-500 disabled:text-gray-300 dark:text-gray-400 bg-slate-200 disabled:bg-transparent border-2 rounded-md px-4"
                 >
-                    Next Question
+                    Next
                 </button>
             </div>
         </div>

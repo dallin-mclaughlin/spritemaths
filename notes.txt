@@ -1,0 +1,31 @@
+Database Creation
+- QuizQuestionAnswers (to hold users saved quiz questions and answers)
+
+id  quizid  questiontype(show graph, multiplication table) question    submittedanswer  correctanswer  jsongraph
+
+- Quiz (to hold users quiz)
+
+id  userid  percentageComplete  datecreated     datelastsaved
+
+- Questions (to hold information about question)
+
+id  question yearlevelid topicid points  commonmistakes  phpfileaddress
+
+- Year Levels (to hold information about year levels)
+
+id  yearlevel   recommendedage
+
+- Topics (to hold information about topics)
+
+id  topic   summary
+
+
+
+----------LATER-------------------------
+- Proficiency Statistics (Polar area)
+POLAR AREA CHART
+id  userid  topicid lasttimeused totalqs   totalright  
+
+- Usage Statistics (use chart.js opensource, 6-monthly stats, so eventually a data field will expire after 6 months to keep database small)
+BAR CHART
+id userid topicid questionsansweredorsaved(date)

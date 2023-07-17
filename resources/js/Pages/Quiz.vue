@@ -1,6 +1,17 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Quiz from "@/Components/Quiz.vue";
+
+const props = defineProps({
+    Questions: Array,
+    SubmittedAnswers: Array,
+});
+
+const submittedAnswers = props.SubmittedAnswers;
+
+function onUpdate(answer, index) {
+    submittedAnswers[index] = answer;
+}
 </script>
 
 <template>
@@ -18,7 +29,11 @@ import Quiz from "@/Components/Quiz.vue";
                 <div
                     class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg"
                 >
-                    <Quiz />
+                    <Quiz
+                        @update:submittedAnswers="onUpdate"
+                        :questions="props.Questions"
+                        :submittedAnswers="submittedAnswers"
+                    />
                 </div>
             </div>
         </div>

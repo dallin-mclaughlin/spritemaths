@@ -33,9 +33,27 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
     Route::get('/quiz', function () {
-      return Inertia::render('Quiz');
+      return Inertia::render('Quiz',[
+        'Questions'=> [
+          'Differentiate \\(x\\)',
+          'Differentiate \\(2x\\)',
+          'Differentiate \\(3x\\)',
+          'Differentiate \\(4x\\)',
+          'Differentiate \\(5x\\)',
+          'Differentiate \\(6x\\)'
+        ],
+        'SubmittedAnswers'=>[
+          '',
+          '',
+          '',
+          '',
+          '',
+          ''
+        ]
+      ]);
     })->name('quiz');
     Route::get('/theory', function () {
       return Inertia::render('Theory');
     })->name('theory');
 });
+
