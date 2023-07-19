@@ -58,18 +58,18 @@ function updateAnswers() {
                 <button
                     className="text-gray-500 dark:text-gray-400 bg-slate-200 border-2 rounded-md px-4"
                 >
-                    Save and Exit
+                    Exit
                 </button>
                 <button
                     className="text-gray-500 dark:text-gray-400 bg-slate-200 border-2 rounded-md px-4"
                 >
-                    Save and Mark
+                    Mark
                 </button>
             </div>
             <p>Question {{ index + 1 }}/{{ props.questions.length }}</p>
             <p
                 id="mathFieldQuestion"
-                class="mt-8 text-2xl font-medium text-gray-900 dark:text-white"
+                class="mt-8 text-3xl font-medium text-gray-900 dark:text-white font-['KaTeX_Fraktur']"
             >
                 {{ props.questions[index] }}
             </p>

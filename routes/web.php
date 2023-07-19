@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\QuizController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,26 +33,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-    Route::get('/quiz', function () {
-      return Inertia::render('Quiz',[
-        'Questions'=> [
-          'Differentiate \\(x\\)',
-          'Differentiate \\(2x\\)',
-          'Differentiate \\(3x\\)',
-          'Differentiate \\(4x\\)',
-          'Differentiate \\(5x\\)',
-          'Differentiate \\(6x\\)'
-        ],
-        'SubmittedAnswers'=>[
-          '',
-          '',
-          '',
-          '',
-          '',
-          ''
-        ]
-      ]);
-    })->name('quiz');
+    Route::get('/quiz', [QuizController::class, 'create'])->name('quiz');
     Route::get('/theory', function () {
       return Inertia::render('Theory');
     })->name('theory');

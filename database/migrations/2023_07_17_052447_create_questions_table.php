@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('question_summary');
             $table->foreignId('year_level_id')->constrained();
-            $table->foreignId('topic_id')->contstrained;
+            $table->foreignId('topic_id')->constrained();
             $table->integer('points');
             $table->string('file_location')->unique();
+            $table->boolean('is_demo')->default(false);
         });
     }
 

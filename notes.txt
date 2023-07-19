@@ -13,7 +13,7 @@ id  question yearlevelid topicid points  commonmistakes  phpfileaddress
 
 - Year Levels (to hold information about year levels)
 
-id  yearlevel   recommendedage
+id  yearlevel   minage  maxage
 
 - Topics (to hold information about topics)
 
@@ -29,3 +29,8 @@ id  userid  topicid lasttimeused totalqs   totalright
 - Usage Statistics (use chart.js opensource, 6-monthly stats, so eventually a data field will expire after 6 months to keep database small)
 BAR CHART
 id userid topicid questionsansweredorsaved(date)
+
+--------API---------
+https://www.who.int/data/gho/info/gho-odata-api
+https://natlib.govt.nz/about-us/open-data/digitalnz-api
+https://www.worldpop.org/datacatalog/
