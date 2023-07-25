@@ -8,6 +8,6 @@ math-field::part(content) {
     justify-content: center;
 }
 
-math-field::part(tooltip-container) {
+math-field::part(virtual-keyboard-toggle)::after {
     display: none;
 }

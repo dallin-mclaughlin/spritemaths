@@ -27,7 +27,7 @@ class QuizController extends Controller
       $questions = [];
       $submitted_answers = [];
       $answers = [];
-      $type = 'App\Questions\Basic\Conversions\AreaConversion';
+      $type = 'App\Questions\Basic\Arithmetic\Addition';
       for($i = 0; $i < $num; $i++){
         $object = new $type;
         array_push($questions, $object->getQuestion());
@@ -37,7 +37,7 @@ class QuizController extends Controller
 
       return Inertia::render('Quiz',[
         'Questions'=> $questions,
-        'SubmittedAnswers'=> $answers
+        'SubmittedAnswers'=> $submitted_answers
       ]);
     }
 }
