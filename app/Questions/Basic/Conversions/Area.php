@@ -3,7 +3,7 @@ namespace App\Questions\Basic\Conversions;
 
 use App\Questions\Question;
 
-    class AreaConversion extends Question{
+    class Area extends Question{
 
         private $initialUnit;
         private $units = ['μm^{2}','mm^{2}','cm^{2}','m^{2}','km^{2}'];

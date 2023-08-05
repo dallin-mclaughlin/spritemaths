@@ -2,16 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Inertia\Response;
 use Inertia\Inertia;
-
-class Hey {
-  public function sayZ() {
-    return 'y';
-  }
-}
-//this makes my life so simple right now! Yes baby!
+use App\Models\Question;
+use Illuminate\Support\Facades\DB;
+ 
 
 class QuizController extends Controller
 {
@@ -27,7 +22,15 @@ class QuizController extends Controller
       $questions = [];
       $submitted_answers = [];
       $answers = [];
-      $type = 'App\Questions\Basic\Arithmetic\Addition';
+      $titles = [];
+      $address = [];
+
+      foreach(Question::all() as $question) {
+        array_push($address, $question->name_space);
+        array_push($titles, $question->title);
+      }
+
+      $type = "App\Questions\\".$address[array_rand($address)];
       for($i = 0; $i < $num; $i++){
         $object = new $type;
         array_push($questions, $object->getQuestion());
@@ -37,7 +40,8 @@ class QuizController extends Controller
 
       return Inertia::render('Quiz',[
         'Questions'=> $questions,
-        'SubmittedAnswers'=> $submitted_answers
+        'SubmittedAnswers'=> $submitted_answers,
+        'Titles'=>$titles
       ]);
     }
 }

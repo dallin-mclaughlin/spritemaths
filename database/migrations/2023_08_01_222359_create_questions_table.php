@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
             $table->string('question_summary');
             $table->foreignId('year_level_id')->constrained();
             $table->foreignId('topic_id')->constrained();
             $table->integer('points');
-            $table->string('file_location')->unique();
+            $table->string('name_space')->unique();
             $table->boolean('is_demo')->default(false);
         });
     }

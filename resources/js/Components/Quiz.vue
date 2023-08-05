@@ -14,6 +14,7 @@ const index = ref(0);
 const props = defineProps({
     questions: Array,
     submittedAnswers: Array,
+    titles: Array,
 });
 
 const emit = defineEmits(["update:submittedAnswers"]);
@@ -101,6 +102,9 @@ function updateAnswers() {
                     Next
                 </button>
             </div>
+            <li v-for="title in titles">
+                {{ title }}
+            </li>
         </div>
     </div>
 </template>

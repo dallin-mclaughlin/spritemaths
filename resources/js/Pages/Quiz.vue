@@ -5,6 +5,7 @@ import Quiz from "@/Components/Quiz.vue";
 const props = defineProps({
     Questions: Array,
     SubmittedAnswers: Array,
+    Titles: Array,
 });
 
 const submittedAnswers = props.SubmittedAnswers;
@@ -33,6 +34,7 @@ function onUpdate(answer, index) {
                         @update:submittedAnswers="onUpdate"
                         :questions="props.Questions"
                         :submittedAnswers="submittedAnswers"
+                        :titles="props.Titles"
                     />
                 </div>
             </div>

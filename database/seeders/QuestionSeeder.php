@@ -13,38 +13,41 @@ class QuestionSeeder extends Seeder
      */
     public function run(): void
     {
-      DB::table('topics')->insert([
+      DB::table('questions')->insert([
+        'title' => 'Addition',
         'question_summary' => 'Learn to Add Numbers',
         'year_level_id' => 1,
         'topic_id' => 1,
         'points' => 1,
-        'namespace'=>'Basic\Arithmetic\Addition',
+        'name_space'=>'Basic\Arithmetic\Addition',
         'is_demo' => true
-      ],
-      [
+      ]);
+      DB::table('questions')->insert([
+        'title' => 'Division',
         'question_summary' => 'Learn to Divide Numbers',
         'year_level_id' => 1,
         'topic_id' => 1,
         'points' => 1,
-        'namespace'=>'Basic\Arithmetic\Division',
+        'name_space'=>'Basic\Arithmetic\Division',
         'is_demo' => true
-      ],
-      [
+      ]);
+      DB::table('questions')->insert([
+        'title' => 'Multiplication', 
         'question_summary' => 'Learn to Multiply Numbers',
         'year_level_id' => 1,
         'topic_id' => 1,
         'points' => 1,
-        'namespace'=>'Basic\Arithmetic\Multiplication',
+        'name_space'=>'Basic\Arithmetic\Multiplication',
         'is_demo' => true
-      ],
-      [
+      ]);
+      DB::table('questions')->insert([
+        'title' => 'Subtraction',
         'question_summary' => 'Learn to Subtract Numbers',
         'year_level_id' => 1,
         'topic_id' => 1,
         'points' => 1,
-        'namespace'=>'Basic\Arithmetic\Subtraction',
+        'name_space'=>'Basic\Arithmetic\Subtraction',
         'is_demo' => true
-      ],
-    );
+      ]);
     }
 }
