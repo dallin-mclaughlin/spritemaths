@@ -20,6 +20,7 @@ class QuestionSeeder extends Seeder
         'topic_id' => 1,
         'points' => 1,
         'name_space'=>'Basic\Arithmetic\Addition',
+        'question_type'=>'basic',
         'is_demo' => true
       ]);
       DB::table('questions')->insert([
@@ -29,6 +30,7 @@ class QuestionSeeder extends Seeder
         'topic_id' => 1,
         'points' => 1,
         'name_space'=>'Basic\Arithmetic\Division',
+        'question_type'=>'basic',
         'is_demo' => true
       ]);
       DB::table('questions')->insert([
@@ -38,6 +40,7 @@ class QuestionSeeder extends Seeder
         'topic_id' => 1,
         'points' => 1,
         'name_space'=>'Basic\Arithmetic\Multiplication',
+        'question_type'=>'basic',
         'is_demo' => true
       ]);
       DB::table('questions')->insert([
@@ -47,6 +50,7 @@ class QuestionSeeder extends Seeder
         'topic_id' => 1,
         'points' => 1,
         'name_space'=>'Basic\Arithmetic\Subtraction',
+        'question_type'=>'basic',
         'is_demo' => true
       ]);
     }

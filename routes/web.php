@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\QuizController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -30,10 +31,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-    Route::get('/quiz', [QuizController::class, 'create'])->name('quiz');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/quiz/save', [QuizController::class, 'save'])->name('quiz.save');
+    Route::post('/quiz', [QuizController::class, 'index'])->name('quiz');
     Route::get('/theory', function () {
       return Inertia::render('Theory');
     })->name('theory');

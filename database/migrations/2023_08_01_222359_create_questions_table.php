@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('topic_id')->constrained();
             $table->integer('points');
             $table->string('name_space')->unique();
+            $table->enum('question_type', ['basic','graph','table']);
             $table->boolean('is_demo')->default(false);
         });
     }

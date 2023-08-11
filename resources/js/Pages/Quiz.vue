@@ -1,11 +1,12 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Quiz from "@/Components/Quiz.vue";
+import { useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
+    ID: Number,
     Questions: Array,
     SubmittedAnswers: Array,
-    Titles: Array,
 });
 
 const submittedAnswers = props.SubmittedAnswers;
@@ -13,6 +14,13 @@ const submittedAnswers = props.SubmittedAnswers;
 function onUpdate(answer, index) {
     submittedAnswers[index] = answer;
 }
+
+const submit = () => {
+    useForm({
+        id: props.ID,
+        submittedanswers: submittedAnswers,
+    }).post(route("quiz.save"));
+};
 </script>
 
 <template>
@@ -32,9 +40,9 @@ function onUpdate(answer, index) {
                 >
                     <Quiz
                         @update:submittedAnswers="onUpdate"
+                        @submit="submit"
                         :questions="props.Questions"
                         :submittedAnswers="submittedAnswers"
-                        :titles="props.Titles"
                     />
                 </div>
             </div>

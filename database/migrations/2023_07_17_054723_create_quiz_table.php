@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('quizs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->integer('percentage_complete');
-            $table->timestamp('date_created');
-            $table->timestamp('date_last_saved');
+            $table->string('title');
+            $table->integer('percentage_complete')->default(0);
+            $table->timestamp('created_at');
+            $table->timestamp('updated_at');
         });
     }
 

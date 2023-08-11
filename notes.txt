@@ -1,11 +1,18 @@
+07/08
+- I have added another form in Welcome.vue for saved quizs. I need
+  to modify the QuizController to allow for saved quizs to be loaded
+08/08
+- I need to create the form in the Quiz.vue 
+
+
 Database Creation
 - QuizQuestionAnswers (to hold users saved quiz questions and answers)
 
-id  quizid  questiontype(show graph, multiplication table) question    submittedanswer  correctanswer  jsongraph
+id  questiontype(show graph, multiplication table) question    submittedanswer  correctanswer  jsongraph
 
 - Quiz (to hold users quiz)
 
-id  userid  percentageComplete  datecreated     datelastsaved
+id  userid  quizid percentageComplete  datecreated     datelastsaved
 
 - Questions (to hold information about question)
 
