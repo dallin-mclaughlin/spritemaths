@@ -44,7 +44,7 @@ keyboard.layouts = ["numeric"];
             ></math-field>
             <div className="flex justify-between">
                 <button
-                    className="text-gray-500 dark:text-gray-400 border-2 rounded-md px-4"
+                    className="text-gray-500 dark:text-gray-400 border-2 dark:border-red-100 rounded-md px-4"
                 >
                     Previous Question
                 </button>
