@@ -1,6 +1,11 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Welcome from "@/Components/Welcome.vue";
+
+const props = defineProps({
+    questions: Array,
+    quizs: Array,
+});
 </script>
 
 <template>
@@ -18,7 +23,10 @@ import Welcome from "@/Components/Welcome.vue";
                 <div
                     class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg"
                 >
-                    <Welcome />
+                    <Welcome
+                        :questions="props.questions"
+                        :quizs="props.quizs"
+                    />
                 </div>
             </div>
         </div>

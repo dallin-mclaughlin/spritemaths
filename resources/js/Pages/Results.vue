@@ -1,35 +1,26 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import Quiz from "@/Components/Quiz.vue";
+import Results from "@/Components/Results.vue";
 import { useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
-    ID: String,
-    Questions: Array,
-    SubmittedAnswers: Array,
+    Quiz: Object,
 });
 
-const submittedAnswers = props.SubmittedAnswers;
-
-function onUpdate(answer, index) {
-    submittedAnswers[index] = answer;
-}
-
-const submit = (routeName) => {
+const submit = () => {
     useForm({
-        id: props.ID,
-        submittedanswers: submittedAnswers,
-    }).post(route(routeName));
+        id: props.Quiz.id,
+    }).post(route("quiz.delete"));
 };
 </script>
 
 <template>
-    <AppLayout title="Quiz">
+    <AppLayout title="Results">
         <template #header>
             <h2
                 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"
             >
-                Quiz
+                Results
             </h2>
         </template>
 
@@ -38,11 +29,9 @@ const submit = (routeName) => {
                 <div
                     class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg"
                 >
-                    <Quiz
-                        @update:submittedAnswers="onUpdate"
+                    <Results
+                        :questionanswers="props.Quiz.questionanswers"
                         @submit="submit"
-                        :questions="props.Questions"
-                        :submittedAnswers="submittedAnswers"
                     />
                 </div>
             </div>
