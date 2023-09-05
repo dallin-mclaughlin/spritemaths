@@ -62,7 +62,7 @@ const submit = () => {
                                 form.newquiz = true;
                             }
                         "
-                        :disabled="form.processing"
+                        :disabled="form.processing || quizs.length > 4"
                     >
                         {{ question.title }}
                     </button>

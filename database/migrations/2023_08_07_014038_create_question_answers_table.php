@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('submitted_answer')->nullable();
             $table->string('correct_answer');
             $table->json('data')->nullable();
+            $table->boolean('is_correct')->default(false);
         });
     }
 

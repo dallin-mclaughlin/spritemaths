@@ -53,5 +53,25 @@ class QuestionSeeder extends Seeder
         'question_type'=>'basic',
         'is_demo' => true
       ]);
+      DB::table('questions')->insert([
+        'title' => 'Algebra',
+        'question_summary' => 'Solve for unknowns',
+        'year_level_id' => 1,
+        'topic_id' => 1,
+        'points' => 1,
+        'name_space'=>'Basic\Arithmetic\Algebra',
+        'question_type'=>'basic',
+        'is_demo' => true
+      ]);
+      DB::table('questions')->insert([
+        'title' => 'Currency',
+        'question_summary' => 'Convert between dollar values',
+        'year_level_id' => 1,
+        'topic_id' => 1,
+        'points' => 1,
+        'name_space'=>'Basic\Conversions\Currency',
+        'question_type'=>'basic',
+        'is_demo' => true
+      ]);
     }
 }

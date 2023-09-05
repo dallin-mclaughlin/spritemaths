@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUpdated } from "vue";
 import { MathfieldElement, renderMathInElement } from "mathlive";
-import { Link } from "@inertiajs/vue3";
 import "../../css/mathlive-fonts.css";
 import "../../css/mathlive.css";
 
@@ -51,11 +50,12 @@ function handleNext() {
     }
 }
 
-function exit() {
-    emit("submit");
+function save(route) {
+    emit("submit", route);
 }
 
 function updateAnswers() {
+    console.log(mathFieldAnswer.value.value);
     emit("update:submittedAnswers", mathFieldAnswer.value.value, index.value);
 }
 </script>
@@ -65,20 +65,26 @@ function updateAnswers() {
         <div
             class="p-6 lg:p-8 text-center bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700"
         >
-            <form @submit.prevent="exit" className="flex justify-between">
-                <button
-                    @click="updateAnswers"
-                    type="submit"
-                    className="text-gray-500 dark:text-gray-400 bg-slate-200 border-2 rounded-md px-4"
-                >
-                    Exit
-                </button>
-                <button
-                    className="text-gray-500 dark:text-gray-400 bg-slate-200 border-2 rounded-md px-4"
-                >
-                    Mark
-                </button>
-            </form>
+            <div className="flex justify-between">
+                <form @submit.prevent="save('quiz.save')">
+                    <button
+                        @click="updateAnswers"
+                        type="submit"
+                        className="text-gray-500 dark:text-gray-400 bg-slate-200 border-2 rounded-md px-4"
+                    >
+                        Save
+                    </button>
+                </form>
+                <form @submit.prevent="save('quiz.results')">
+                    <button
+                        @click="updateAnswers"
+                        type="submit"
+                        className="text-gray-500 dark:text-gray-400 bg-slate-200 border-2 rounded-md px-4"
+                    >
+                        Mark
+                    </button>
+                </form>
+            </div>
             <p>Question {{ index + 1 }}/{{ props.questions.length }}</p>
             <p
                 id="mathFieldQuestion"

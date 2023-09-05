@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\MarkingController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,16 +27,29 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/theory', function () {
+  return Inertia::render('Theory');
+})->name('theory');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::post('/quiz/save', [QuizController::class, 'save'])->name('quiz.save');
+    
+    Route::get('/quiz', function() {
+      return redirect()->route('dashboard');
+    });
     Route::post('/quiz', [QuizController::class, 'index'])->name('quiz');
-    Route::get('/theory', function () {
-      return Inertia::render('Theory');
-    })->name('theory');
+    Route::post('/quiz/save', [QuizController::class, 'save'])->name('quiz.save');
+    Route::post('/quiz/delete', [QuizController::class, 'delete'])->name('quiz.delete');
+    Route::post('/quiz/mark', MarkingController::class)->name('quiz.mark');
+
+    Route::get('/results', function() {
+      return redirect()->route('dashboard');
+    });
+    Route::post('/results', [QuizController::class, 'mark'])->name('quiz.results');
+    Route::get('/math', [QuizController::class, 'phpmathparser'])->name('math');
 });
 

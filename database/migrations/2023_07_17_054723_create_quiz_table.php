@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->string('title');
             $table->integer('percentage_complete')->default(0);
+            $table->integer('percentage_correct')->default(0);
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
         });
