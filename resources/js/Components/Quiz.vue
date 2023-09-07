@@ -7,7 +7,6 @@ import "../../css/mathlive.css";
 const mathFieldAnswer = ref<MathfieldElement>(new MathfieldElement());
 const keyboard = window.mathVirtualKeyboard;
 keyboard.layouts = ["numeric"];
-
 const index = ref(0);
 
 const props = defineProps({
@@ -30,6 +29,7 @@ onMounted(() => {
 onUpdated(() => {
     renderMathInElement("mathFieldQuestion");
     mathFieldAnswer.value.focus();
+    keyboard.hide();
 });
 
 function handlePrevious() {
