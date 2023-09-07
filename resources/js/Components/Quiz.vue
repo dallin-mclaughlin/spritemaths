@@ -5,8 +5,9 @@ import "../../css/mathlive-fonts.css";
 import "../../css/mathlive.css";
 
 const mathFieldAnswer = ref<MathfieldElement>(new MathfieldElement());
+mathFieldAnswer.value.mathVirtualKeyboardPolicy = "manual";
 const keyboard = window.mathVirtualKeyboard;
-keyboard.layouts = ["numeric"];
+keyboard.layouts = ["compact"];
 const index = ref(0);
 
 const props = defineProps({
@@ -24,12 +25,16 @@ onMounted(() => {
     } else {
         mathFieldAnswer.value.insert(String(props.submittedAnswers[0]));
     }
+    keyboard.hide();
 });
 
 onUpdated(() => {
     renderMathInElement("mathFieldQuestion");
+    let toggle = keyboard.visible;
     mathFieldAnswer.value.focus();
-    keyboard.hide();
+    if (!toggle) {
+        keyboard.hide();
+    }
 });
 
 function handlePrevious() {
