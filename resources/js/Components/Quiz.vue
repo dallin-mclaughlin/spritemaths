@@ -30,6 +30,8 @@ onMounted(() => {
 onUpdated(() => {
     renderMathInElement("mathFieldQuestion");
     mathFieldAnswer.value.focus();
+    if (keyboard.visible) {
+    }
 });
 
 function handlePrevious() {
