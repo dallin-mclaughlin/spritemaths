@@ -50,6 +50,5 @@ Route::middleware([
       return redirect()->route('dashboard');
     });
     Route::post('/results', [QuizController::class, 'mark'])->name('quiz.results');
-    Route::get('/math', [QuizController::class, 'phpmathparser'])->name('math');
 });
 

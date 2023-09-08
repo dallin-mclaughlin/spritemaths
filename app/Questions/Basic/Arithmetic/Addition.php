@@ -12,10 +12,32 @@ class Addition extends Question {
     $firstNumber = random_int($min, $max);
     $secondNumber = random_int($min, $max);
 
+    $firstTen = intdiv($firstNumber, 10) * 10;
+    $secondTen = intdiv($secondNumber, 10) * 10;
+    $totalTen = $firstTen + $secondTen;
+
+    $firstOne= $firstNumber - $firstTen;
+    $secondOne = $secondNumber - $secondTen;
+    $totalOne = $firstOne + $secondOne;
+
+    $answerNumber = $firstNumber + $secondNumber;
+
     $question = '\\('.$firstNumber.'+'.$secondNumber.'\\)';
-    $answer = strval($firstNumber + $secondNumber);
+    $answer = strval($answerNumber);
+
+    //todo: if there are no tens to add then remove this line
+    $tens = "10s: & $firstTen+$secondTen  = & $totalTen \\\ ";
+
+    $solution_logic = "
+    \begin{align}
+      10s: & $firstTen+$secondTen  = & $totalTen \\\
+      1s: & $firstOne+$secondOne  = & + $totalOne \\\
+      &  &   \\enclose{top}{ $answerNumber } \\\
+    \\end{align}
+    ";
 
     $this->setQuestion($question);
     $this->setAnswer($answer);
+    $this->setSolutionLogic($solution_logic);
   }
 }

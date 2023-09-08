@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('question_answers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('quiz_id');
-            $table->text('question');
+            $table->text('blurb')->nullable();
+            $table->text('solution_logic');
+            $table->string('question');
             $table->string('submitted_answer')->nullable();
             $table->string('correct_answer');
             $table->json('data')->nullable();

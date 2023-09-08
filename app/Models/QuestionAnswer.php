@@ -13,8 +13,10 @@ class QuestionAnswer extends Model
 
     protected $fillable = [
       'quiz_id',
+      'blurb',
       'question',
       'submitted_answer',
-      'correct_answer'
+      'correct_answer',
+      'solution_logic'
     ];
 }

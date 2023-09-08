@@ -21,6 +21,9 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
+        "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+        "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
+        "function-plot": "^1.23.3",
         "mathlive": "^0.95.0"
     }
 }

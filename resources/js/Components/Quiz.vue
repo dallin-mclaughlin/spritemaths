@@ -1,16 +1,18 @@
 <script setup lang="ts">
+import functionPlot from "function-plot";
 import { ref, onMounted, onUpdated } from "vue";
 import { MathfieldElement, renderMathInElement } from "mathlive";
 import "../../css/mathlive-fonts.css";
 import "../../css/mathlive.css";
 
 const mathFieldAnswer = ref<MathfieldElement>(new MathfieldElement());
+mathFieldAnswer.value.mathVirtualKeyboardPolicy = "manual";
 const keyboard = window.mathVirtualKeyboard;
 keyboard.layouts = ["numeric"];
-
 const index = ref(0);
 
 const props = defineProps({
+    blurbs: Array,
     questions: Array,
     submittedAnswers: Array,
 });
@@ -18,19 +20,45 @@ const props = defineProps({
 const emit = defineEmits(["update:submittedAnswers", "submit"]);
 
 onMounted(() => {
+    functionPlot({
+        target: "#root",
+        width: 800,
+        height: 500,
+        yAxis: { domain: [-1, 9] },
+        grid: true,
+        disableZoom: true,
+        tip: {
+            renderer: function (x, y, index) {
+                // the returning value will be shown in the tip
+                return "";
+            },
+        },
+        data: [
+            {
+                fn: "x^2",
+                skipTip: true,
+            },
+        ],
+    });
     renderMathInElement("mathFieldQuestion");
+    if (props.blurbs[0] != null) renderMathInElement("mathFieldBlurb");
     mathFieldAnswer.value.focus();
     if (props.submittedAnswers[0] == null) {
         mathFieldAnswer.value.insert("");
     } else {
         mathFieldAnswer.value.insert(String(props.submittedAnswers[0]));
     }
+    keyboard.hide();
 });
 
 onUpdated(() => {
     renderMathInElement("mathFieldQuestion");
+    if (props.blurbs[index.value] != null)
+        renderMathInElement("mathFieldBlurb");
+    let toggle = keyboard.visible;
     mathFieldAnswer.value.focus();
-    if (keyboard.visible) {
+    if (!toggle) {
+        keyboard.hide();
     }
 });
 
@@ -57,7 +85,6 @@ function save(route) {
 }
 
 function updateAnswers() {
-    console.log(mathFieldAnswer.value.value);
     emit("update:submittedAnswers", mathFieldAnswer.value.value, index.value);
 }
 </script>
@@ -87,7 +114,15 @@ function updateAnswers() {
                     </button>
                 </form>
             </div>
+            <div class="flex justify-center" id="root"></div>
             <p>Question {{ index + 1 }}/{{ props.questions.length }}</p>
+            <p
+                v-if="props.blurbs[index]"
+                id="mathFieldBlurb"
+                class="mt-8 text-lg font-medium text-gray-900 dark:text-white font-['KaTeX_Fraktur']"
+            >
+                {{ props.blurbs[index] }}
+            </p>
             <p
                 id="mathFieldQuestion"
                 class="mt-8 text-3xl font-medium text-gray-900 dark:text-white font-['KaTeX_Fraktur']"

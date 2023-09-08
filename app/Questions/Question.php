@@ -4,8 +4,18 @@ namespace App\Questions;
 
 class Question {
 
+  private $blurb;
   private $question;
   private $answer;
+  private $solution_logic;
+
+  function setBlurb($blurb){
+    $this->blurb = $blurb;
+  }
+
+  function setSolutionLogic($solution_logic){
+    $this->solution_logic = $solution_logic;
+  }
 
   function setQuestion($question){
     $this->question = $question;
@@ -15,12 +25,20 @@ class Question {
     $this->answer = $answer;
   }
 
+  function getBlurb(){
+    return $this->blurb;
+  }
+
   function getQuestion(){
     return $this->question;
   }
 
   function getAnswer(){
     return $this->answer;
+  }
+
+  function getSolutionLogic(){
+    return $this->solution_logic;
   }
 
   function float2rat($n, $latexFormat = True, $tolerance = 1.e-6) {

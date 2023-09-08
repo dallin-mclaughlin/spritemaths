@@ -25,7 +25,10 @@ class Algebra extends Question {
     $question = "Solve for \\(".$variable."\\) given \\(".$term1."+".$term2."=".$term3."\\)";
     $answer = $this->float2rat(($c - $b)/$a);
 
+    
     $this->setQuestion($question);
     $this->setAnswer($answer);
+    $solution_logic = 'hi';
+    $this->setSolutionLogic($solution_logic);
   }
 }

@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { ref, onMounted, onUpdated } from "vue";
-import { renderMathInDocument, renderMathInElement } from "mathlive";
-import { Link } from "@inertiajs/vue3";
+import { onMounted, ref } from "vue";
+import { renderMathInDocument } from "mathlive";
 
 interface QuestionAnswer {
+    blurb: string;
     question: string;
     submitted_answer: string;
     correct_answer: string;
+    solution_logic: string;
     is_correct: boolean;
 }
 
@@ -15,6 +16,15 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["submit"]);
+
+const showAnswer = "Show Answer";
+const hideAnswer = "Hide Answer";
+
+const hide = props.questionanswers.map((qa) => {
+    return { visible: false, text: showAnswer };
+});
+
+const hideRef = ref(hide);
 
 onMounted(() => {
     renderMathInDocument();
@@ -41,7 +51,7 @@ onMounted(() => {
         <div
             class="bg-gray-200 dark:bg-gray-800 bg-opacity-25 grid grid-cols-1 gap-6 lg:gap-8 p-6 lg:p-8 text-center"
         >
-            <div v-for="questionanswer in questionanswers">
+            <div v-for="(questionanswer, index) in questionanswers">
                 <p>
                     {{ questionanswer.question }}
                 </p>
@@ -66,6 +76,26 @@ onMounted(() => {
                     incorrect. The correct answer is
                     {{ "\\(" + questionanswer.correct_answer + "\\)" }}
                 </p>
+                <math-field
+                    class="bg-gray-200 bg-opacity-0"
+                    v-if="questionanswer.solution_logic"
+                    v-show="hideRef[index].visible"
+                    read-only
+                >
+                    {{ questionanswer.solution_logic }}
+                </math-field>
+                <button
+                    @click="
+                        () => {
+                            hideRef[index].visible = !hideRef[index].visible;
+                            hideRef[index].text = hideRef[index].visible
+                                ? hideAnswer
+                                : showAnswer;
+                        }
+                    "
+                >
+                    {{ hideRef[index].text }}
+                </button>
             </div>
         </div>
     </div>

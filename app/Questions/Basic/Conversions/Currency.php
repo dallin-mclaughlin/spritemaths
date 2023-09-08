@@ -18,11 +18,14 @@ use App\Questions\Question;
             $finalUnit = $this->getFinalUnit($this->initialUnit);
 
             $initialValue = $this->getRandomValue($this->initialUnit);
-            $finalValue = $initialValue*$unitsConversions[$finalUnit]/$unitsConversions[$this->initialUnit];
+            $finalValue = round($initialValue*$unitsConversions[$finalUnit]/$unitsConversions[$this->initialUnit], 2);
             $beginning = $this->addCurrencyListing($unitsConversions);
-            $this->setQuestion($beginning.' Convert '.$this->initialUnit.'\\('.$initialValue.
+            $this->setBlurb($beginning);
+            $this->setQuestion('Convert '.$this->initialUnit.'\\('.$initialValue.
                                 ' \\) into '.$this->getUnitWord($finalUnit).' '.$finalUnit);
             $this->setAnswer($finalValue);
+            $solution_logic = 'hi';
+    $this->setSolutionLogic($solution_logic);
         }
 
         function getRandomValue($unit)
@@ -76,9 +79,9 @@ use App\Questions\Question;
             foreach($symbols as $symbol){
                 $information = $information.'\\(1\\) US dollar  = '.$symbol.'\\('.number_format($currencyUnits[$symbol],2).'\\), ';
             }
-            return 'Given '.$information;
+            return 'Given '.$information.'. Round to \\(2\\) d.p.';
         }
        
     }
-
+//I can construct this 
 ?>

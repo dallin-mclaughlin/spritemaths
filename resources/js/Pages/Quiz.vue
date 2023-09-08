@@ -5,6 +5,7 @@ import { useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
     ID: String,
+    Blurbs: Array,
     Questions: Array,
     SubmittedAnswers: Array,
 });
@@ -41,6 +42,7 @@ const submit = (routeName) => {
                     <Quiz
                         @update:submittedAnswers="onUpdate"
                         @submit="submit"
+                        :blurbs="props.Blurbs"
                         :questions="props.Questions"
                         :submittedAnswers="submittedAnswers"
                     />
