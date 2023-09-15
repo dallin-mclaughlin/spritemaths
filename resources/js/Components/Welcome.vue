@@ -3,12 +3,14 @@ import { Link, useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
     questions: Array,
+    topics: Array,
     quizs: Array,
 });
 
 const form = useForm({
     id: 0,
     newquiz: true,
+    multiple: false,
 });
 
 const submit = () => {
@@ -65,6 +67,21 @@ const submit = () => {
                         :disabled="form.processing || quizs.length > 4"
                     >
                         {{ question.title }}
+                    </button>
+                </div>
+                <div v-for="topic in topics">
+                    <button
+                        type="submit"
+                        @click="
+                            () => {
+                                form.id = topic.id;
+                                form.newquiz = true;
+                                form.multiple = true;
+                            }
+                        "
+                        :disabled="form.processing || quizs.length > 4"
+                    >
+                        {{ topic.topic.replaceAll("_", " ") }}
                     </button>
                 </div>
             </div>

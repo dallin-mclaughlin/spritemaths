@@ -17,6 +17,7 @@ class QuestionAnswer extends Model
       'question',
       'submitted_answer',
       'correct_answer',
-      'solution_logic'
+      'solution_logic',
+      'graph_data'
     ];
 }

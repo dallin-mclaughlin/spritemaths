@@ -6,11 +6,13 @@ use Inertia\Response;
 use Inertia\Inertia;
 use App\Models\Question;
 use App\Models\Quiz;
+use App\Models\Topic;
 use App\Models\QuestionAnswer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
 
 use App\Marking\Marking;
  
@@ -23,11 +25,56 @@ class QuizController extends Controller
     /**
      * Create new quiz data
      */
+    private function createNewMultipleQuiz(string $topic_id) : array
+    {
+      $blurbs = [];
+      $questions = [];
+      $submitted_answers = [];
+      $graph_datas = [];
+
+      $topic = Topic::where('id', $topic_id)->first();
+      $questionObjects = Question::where('topic_id', $topic_id)
+                        ->get()
+                        ->random(fn (Collection $items) => 
+                            min($this->num_questions, count($items)))
+                        ->shuffle();
+
+      $quiz = Quiz::create([
+        'user_id'=>Auth::id(),
+        'title'=>$topic->topic
+      ]);
+
+      for($i = 0; $i < count($questionObjects); $i++){
+        $questionObject = $questionObjects[$i];
+        $type = "App\Questions\\".$questionObject->name_space;
+        $object = new $type;
+        $question_answer = new QuestionAnswer([
+          'blurb'=>$object->getBlurb(),
+          'question'=>$object->getQuestion(),
+          'correct_answer'=>$object->getAnswer(),
+          'solution_logic'=>$object->getSolutionLogic(),
+          'graph_data'=>$object->getGraphData()
+        ]);
+        $quiz->questionanswers()->save($question_answer);
+        array_push($blurbs, $question_answer->blurb);
+        array_push($questions, $question_answer->question);
+        array_push($submitted_answers, $question_answer->submitted_answer);
+        array_push($graph_datas, $question_answer->graph_data);
+      }
+      
+
+      return [$blurbs, $questions, $submitted_answers, $graph_datas, $quiz->id];
+    }
+
+    /**
+     * Create new quiz data
+     */
     private function createNewQuiz(string $question_id) : array
     {
       $blurbs = [];
       $questions = [];
       $submitted_answers = [];
+      $graph_datas = [];
 
       $questionObject = Question::where('id', $question_id)->first();
 
@@ -43,15 +90,17 @@ class QuizController extends Controller
           'blurb'=>$object->getBlurb(),
           'question'=>$object->getQuestion(),
           'correct_answer'=>$object->getAnswer(),
-          'solution_logic'=>$object->getSolutionLogic()
+          'solution_logic'=>$object->getSolutionLogic(),
+          'graph_data'=>$object->getGraphData()
         ]);
         $quiz->questionanswers()->save($question_answer);
         array_push($blurbs, $question_answer->blurb);
         array_push($questions, $question_answer->question);
         array_push($submitted_answers, $question_answer->submitted_answer);
+        array_push($graph_datas, $question_answer->graph_data);
       }
 
-      return [$blurbs, $questions, $submitted_answers, $quiz->id];
+      return [$blurbs, $questions, $submitted_answers, $graph_datas, $quiz->id];
     }
 
     /**
@@ -62,6 +111,7 @@ class QuizController extends Controller
       $blurbs = [];
       $questions = [];
       $submitted_answers = [];
+      $graph_datas = [];
 
       $questions_answers = Quiz::find($quiz_id)->questionanswers;
 
@@ -69,9 +119,10 @@ class QuizController extends Controller
         array_push($blurbs, $question_answer->blurb);
         array_push($questions, $question_answer->question);
         array_push($submitted_answers, $question_answer->submitted_answer);
+        array_push($graph_datas, $question_answer->graph_data);
       }
 
-      return [$blurbs, $questions, $submitted_answers, $quiz_id];
+      return [$blurbs, $questions, $submitted_answers, $graph_datas, $quiz_id];
     }
 
     private function saveQuiz(string $quiz_id, array $submitted_answers): void
@@ -93,30 +144,58 @@ class QuizController extends Controller
      /**
      * Get quiz and display it
      */
-    public function index(Request $request) : Response
+    public function index(Request $request)
     {
-      //check to see if the person has more than 5 saved quizzes
-      //if they do then prevent them from creating another quiz
       $id = $request->input('id');
       $is_new_quiz = $request->input('newquiz');
-
-      $questions = [];
-      $submitted_answers = [];
-      $quiz_id = null;
+      $is_multiple = $request->input('multiple');
+      //check to see if the person has more than 5 saved quizzes
+      //if they do then prevent them from creating another quiz
+      if($is_new_quiz && DB::table('quizs')->where('user_id', Auth::id())->count()>4){
+        return redirect('dashboard')->dangerBanner('Before starting another quiz finish one first please.');
+      }
 
       [ 
         $blurbs,
         $questions, 
         $submitted_answers, 
+        $graph_datas,
         $quiz_id
-      ] = ($is_new_quiz) ? $this->createNewQuiz($id): $this->retrieveSavedQuiz($id);
+      ] = [null, null, null, null, null]; 
+      
+      if($is_new_quiz && !$is_multiple){
+        [ 
+          $blurbs,
+          $questions, 
+          $submitted_answers, 
+          $graph_datas,
+          $quiz_id
+        ] = $this->createNewQuiz($id);
+      } else if($is_new_quiz && $is_multiple){
+        [ 
+          $blurbs,
+          $questions, 
+          $submitted_answers, 
+          $graph_datas,
+          $quiz_id
+        ] = $this->createNewMultipleQuiz($id);
+      } else {
+        [ 
+          $blurbs,
+          $questions, 
+          $submitted_answers, 
+          $graph_datas,
+          $quiz_id
+        ] = $this->retrieveSavedQuiz($id);
+      }
 
-      if($quiz_id == null) redirect()->back();
+      if($quiz_id == null) redirect('dashboard')->dangerBanner('An error occured. Try again.');
 
       return Inertia::render('Quiz', 
         [
           'ID'=>$quiz_id, 
           'Blurbs'=>$blurbs,
+          'GraphDatas'=>$graph_datas,
           'Questions'=>$questions, 
           'SubmittedAnswers'=>$submitted_answers
         ]);
@@ -178,9 +257,4 @@ class QuizController extends Controller
     }
 }
 
-
-
-//i think i might need to use the power of json objects better
-//because here i am creating arrays that will be accesses using an 
-//index
 

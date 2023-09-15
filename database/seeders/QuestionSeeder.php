@@ -66,7 +66,7 @@ class QuestionSeeder extends Seeder
       DB::table('questions')->insert([
         'title' => 'Currency',
         'question_summary' => 'Convert between dollar values',
-        'year_level_id' => 1,
+        'year_level_id' => 2,
         'topic_id' => 1,
         'points' => 1,
         'name_space'=>'Basic\Conversions\Currency',

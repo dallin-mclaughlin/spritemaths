@@ -17,7 +17,5 @@ class Multiplication extends Question {
 
     $this->setQuestion($question);
     $this->setAnswer($answer);
-    $solution_logic = 'hi';
-    $this->setSolutionLogic($solution_logic);
   }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('quiz_id');
             $table->text('blurb')->nullable();
             $table->text('solution_logic');
+            $table->json('graph_data')->nullable();
             $table->string('question');
             $table->string('submitted_answer')->nullable();
             $table->string('correct_answer');
