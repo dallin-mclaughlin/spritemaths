@@ -39,6 +39,8 @@ class QuizController extends Controller
                             min($this->num_questions, count($items)))
                         ->shuffle();
 
+      if(count($questionObjects)==0) return [null, null, null, null, null];
+
       $quiz = Quiz::create([
         'user_id'=>Auth::id(),
         'title'=>$topic->topic
@@ -77,6 +79,8 @@ class QuizController extends Controller
       $graph_datas = [];
 
       $questionObject = Question::where('id', $question_id)->first();
+
+      if($questionObject->id == null) return [null, null, null, null, null];
 
       $quiz = Quiz::create([
         'user_id'=>Auth::id(),
@@ -189,7 +193,7 @@ class QuizController extends Controller
         ] = $this->retrieveSavedQuiz($id);
       }
 
-      if($quiz_id == null) redirect('dashboard')->dangerBanner('An error occured. Try again.');
+      if($quiz_id == null) return redirect('dashboard')->dangerBanner('An error occured. Try again.');
 
       return Inertia::render('Quiz', 
         [

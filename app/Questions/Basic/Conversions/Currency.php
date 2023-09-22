@@ -78,7 +78,7 @@ use App\Questions\Question;
                 $information = $information.'\\(1\\) US dollar  = '.$symbol.'\\('.number_format($currencyUnits[$symbol],2).'\\), ';
             }
             $information = substr($information, 0, -2);
-            return 'Given '.$information.'. Round to \\(2\\) d.p.';
+            return "Given".$information.". Round to \\(2\\) d.p.";
         }
        
     }
