@@ -40,8 +40,8 @@ class Addition extends Question {
 
   $graph_data = array(
     'target' => '#root',
-    'width' => 800,
-    'height' => 500,
+    'width' => 400,
+    'height' => 250,
     'yAxis' => array('domain'=>[-1,9]),
     'grid'=>true,
     'disableZoom'=>true,
