@@ -3,6 +3,8 @@
   to modify the QuizController to allow for saved quizs to be loaded
 08/08
 - I need to create the form in the Quiz.vue 
+20/09
+- Types of tests: 
 
 
 Database Creation

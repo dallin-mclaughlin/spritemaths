@@ -24,8 +24,6 @@ use App\Questions\Question;
             $this->setQuestion('Convert '.$this->initialUnit.'\\('.$initialValue.
                                 ' \\) into '.$this->getUnitWord($finalUnit).' '.$finalUnit);
             $this->setAnswer($finalValue);
-            $solution_logic = 'hi';
-    $this->setSolutionLogic($solution_logic);
         }
 
         function getRandomValue($unit)
@@ -79,7 +77,8 @@ use App\Questions\Question;
             foreach($symbols as $symbol){
                 $information = $information.'\\(1\\) US dollar  = '.$symbol.'\\('.number_format($currencyUnits[$symbol],2).'\\), ';
             }
-            return 'Given '.$information.'. Round to \\(2\\) d.p.';
+            $information = substr($information, 0, -2);
+            return "Given".$information.". Round to \\(2\\) d.p.";
         }
        
     }

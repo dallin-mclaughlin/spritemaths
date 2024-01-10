@@ -36,8 +36,21 @@ class Addition extends Question {
     \\end{align}
     ";
 
+  $num = random_int(2,4);
+
+  $graph_data = array(
+    'target' => '#root',
+    'width' => 800,
+    'height' => 500,
+    'yAxis' => array('domain'=>[-1,9]),
+    'grid'=>true,
+    'disableZoom'=>true,
+    'data'=> [array('fn'=>$num.'x^2', 'skipTip'=>true)] 
+  );
+
     $this->setQuestion($question);
     $this->setAnswer($answer);
     $this->setSolutionLogic($solution_logic);
+    //(random_int(0,1))?$this->setGraphData(json_encode($graph_data)):$this->setGraphData('{}');
   }
 }

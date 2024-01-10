@@ -15,33 +15,19 @@ const props = defineProps({
     blurbs: Array,
     questions: Array,
     submittedAnswers: Array,
+    graphdatas: Array<string>,
 });
+
+const graphDatas = props.graphdatas.map((element) => {
+    return JSON.parse(element);
+}) as Array<{ target }>;
 
 const emit = defineEmits(["update:submittedAnswers", "submit"]);
 
 onMounted(() => {
-    functionPlot({
-        target: "#root",
-        width: 800,
-        height: 500,
-        yAxis: { domain: [-1, 9] },
-        grid: true,
-        disableZoom: true,
-        tip: {
-            renderer: function (x, y, index) {
-                // the returning value will be shown in the tip
-                return "";
-            },
-        },
-        data: [
-            {
-                fn: "x^2",
-                skipTip: true,
-            },
-        ],
-    });
     renderMathInElement("mathFieldQuestion");
     if (props.blurbs[0] != null) renderMathInElement("mathFieldBlurb");
+    if (props.graphdatas[0] != null) functionPlot(graphDatas[0]);
     mathFieldAnswer.value.focus();
     if (props.submittedAnswers[0] == null) {
         mathFieldAnswer.value.insert("");
@@ -55,6 +41,8 @@ onUpdated(() => {
     renderMathInElement("mathFieldQuestion");
     if (props.blurbs[index.value] != null)
         renderMathInElement("mathFieldBlurb");
+    if (props.graphdatas[index.value] != null)
+        functionPlot(graphDatas[index.value]);
     let toggle = keyboard.visible;
     mathFieldAnswer.value.focus();
     if (!toggle) {
@@ -114,7 +102,11 @@ function updateAnswers() {
                     </button>
                 </form>
             </div>
-            <div class="flex justify-center" id="root"></div>
+            <div
+                v-show="graphDatas[index].hasOwnProperty('target')"
+                class="flex justify-center"
+                id="root"
+            ></div>
             <p>Question {{ index + 1 }}/{{ props.questions.length }}</p>
             <p
                 v-if="props.blurbs[index]"

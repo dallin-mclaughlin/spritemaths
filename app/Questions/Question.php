@@ -7,10 +7,15 @@ class Question {
   private $blurb;
   private $question;
   private $answer;
-  private $solution_logic;
+  private $solution_logic = 'No solution logic has been provided yet';
+  private $graph_data = '{}';
 
   function setBlurb($blurb){
     $this->blurb = $blurb;
+  }
+
+  function setGraphData($graph_data){
+    $this->graph_data = $graph_data;
   }
 
   function setSolutionLogic($solution_logic){
@@ -41,7 +46,11 @@ class Question {
     return $this->solution_logic;
   }
 
-  function float2rat($n, $latexFormat = True, $tolerance = 1.e-6) {
+  function getGraphData(){
+    return $this->graph_data;
+  }
+
+  function float2rat($n, $latexFormat = true, $tolerance = 1.e-6) {
     $negative = false;
     if($n < 0){
         $n = $n * (-1);

@@ -4,6 +4,7 @@ import Welcome from "@/Components/Welcome.vue";
 
 const props = defineProps({
     questions: Array,
+    topics: Array,
     quizs: Array,
 });
 </script>
@@ -25,6 +26,7 @@ const props = defineProps({
                 >
                     <Welcome
                         :questions="props.questions"
+                        :topics="props.topics"
                         :quizs="props.quizs"
                     />
                 </div>

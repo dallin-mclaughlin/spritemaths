@@ -22,13 +22,22 @@ class Algebra extends Question {
     $term2 = $b;
     $term3 = $c; 
 
-    $question = "Solve for \\(".$variable."\\) given \\(".$term1."+".$term2."=".$term3."\\)";
+    $LHS = "";
+    $RHS = "";
+
+    if(random_int(0,1)){
+      $LHS = (random_int(0,1))?$term1."+".$term2:$term2."+".$term1;
+      $RHS = $term3;
+    } else {
+      $LHS = $term3;
+      $RHS = (random_int(0,1))?$term1."+".$term2:$term2."+".$term1;
+    }
+
+    $question = "Solve for \\(".$variable."\\) given \\(".$LHS."=".$RHS."\\)";
     $answer = $this->float2rat(($c - $b)/$a);
 
     
     $this->setQuestion($question);
     $this->setAnswer($answer);
-    $solution_logic = 'hi';
-    $this->setSolutionLogic($solution_logic);
   }
 }
