@@ -14,6 +14,9 @@ const form = useForm({
 const submit = () => {
     form.post(route("quiz"));
 };
+
+console.log("hello");
+console.log(props.questions);
 </script>
 
 <template>
