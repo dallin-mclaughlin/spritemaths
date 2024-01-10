@@ -51,6 +51,6 @@ class Addition extends Question {
     $this->setQuestion($question);
     $this->setAnswer($answer);
     $this->setSolutionLogic($solution_logic);
-    //(random_int(0,1))?$this->setGraphData(json_encode($graph_data)):$this->setGraphData('{}');
+    (random_int(0,1))?$this->setGraphData(json_encode($graph_data)):$this->setGraphData('{}');
   }
 }
