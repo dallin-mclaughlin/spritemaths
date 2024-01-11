@@ -1,6 +1,6 @@
 # About spritemaths Laravel and Vue version
 
-This is the second version of [spritemaths](https://spritemaths.com). If you wish to try the first version click the spritemaths link and click Login and then type in the browser: username: nillad12@gmail.com, password: dallin.
+This is the second version of [spritemaths](https://github.com/dallin-mclaughlin/prototype-spritemaths).
 
 The second edition includes php, vue and mysql. Vue and tailwindcss made it easy to make the UI impressive and interactive. It worked well with Mathlive even since Mathlive's recent updates. Although I did have to rewrite the code in some parts to make sure Mathlive was still compatible.
 
